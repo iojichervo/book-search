@@ -32,6 +32,11 @@ export default function BooksTable(props: BooksTableProps) {
   ]
 
   if (error) return <p>An error has occurred...</p>
-  if (isLoading) return <Spin />
-  return <Table dataSource={data.docs} columns={columns} />
+  return (
+    <Table
+      dataSource={data && data.docs}
+      columns={columns}
+      loading={isLoading}
+    />
+  )
 }

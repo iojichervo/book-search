@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+}
+
+#main-layout {
+    height: 100vh;
+    padding: 20px 80px;
+}
+
+#search-wrapper {
+    padding: 20px 0;
+}
