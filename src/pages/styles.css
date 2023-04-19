@@ -4,9 +4,24 @@ body {
 
 #main-layout {
     height: 100vh;
-    padding: 20px 80px;
 }
 
-#search-wrapper {
-    padding: 20px 0;
+@media (min-width: 481px) {
+    #main-layout {
+        padding: 20px 80px;
+    }
+
+    #search-wrapper {
+        padding: 20px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    #main-layout {
+        padding: 5px 10px;
+    }
+
+    #search-wrapper {
+        padding: 5px 0;
+    }
 }
