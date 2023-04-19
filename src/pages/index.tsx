@@ -1,5 +1,6 @@
 import { Layout, Input } from 'antd'
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
@@ -8,10 +9,9 @@ const { Header, Content } = Layout
 const { Search } = Input
 
 export default function Home() {
-  const onSearch = (value: string) => console.log(value)
-
+  const [search, setSearch] = useState<string>()
   const { data, error } = useSWR(
-    'https://openlibrary.org/search.json?q=the+lord+of+the+rings',
+    'https://openlibrary.org/search.json?q=' + search,
     fetcher
   )
 
@@ -30,13 +30,9 @@ export default function Home() {
       <Layout style={{ height: '100vh' }}>
         <Header>Logo</Header>
         <Content style={{ padding: '0 50px' }}>
-          <Search
-            placeholder="input search text"
-            onSearch={onSearch}
-            enterButton
-          />
+          <Search placeholder="Search..." onSearch={setSearch} enterButton />
 
-          {JSON.stringify(data)}
+          {data.q}
         </Content>
       </Layout>
     </>
