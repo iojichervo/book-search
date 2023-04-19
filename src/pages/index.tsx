@@ -1,6 +1,6 @@
+import BooksSearch from '@/components/BooksSearch/BooksSearch'
 import { Layout, Typography } from 'antd'
 import Head from 'next/head'
-import BooksSearch from '@/components/BooksSearch'
 
 const { Title } = Typography
 const { Content } = Layout

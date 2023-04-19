@@ -1,6 +1,6 @@
-import BooksTable from '@/components/BooksTable'
-import { Empty, Input, Row } from 'antd'
+import { Empty, Input } from 'antd'
 import { useState } from 'react'
+import BooksTable from '../BooksTable/BooksTable'
 
 const { Search } = Input
 

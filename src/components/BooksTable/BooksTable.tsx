@@ -1,4 +1,4 @@
-import { Spin, Table } from 'antd'
+import { Table } from 'antd'
 import useSWR from 'swr'
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
