@@ -1,7 +1,23 @@
-import { Button } from 'antd'
+import { Layout, Input } from 'antd'
 import Head from 'next/head'
+import useSWR from 'swr'
+
+const fetcher = (url: string) => fetch(url).then((r) => r.json())
+
+const { Header, Content } = Layout
+const { Search } = Input
 
 export default function Home() {
+  const onSearch = (value: string) => console.log(value)
+
+  const { data, error } = useSWR(
+    'https://openlibrary.org/search.json?q=the+lord+of+the+rings',
+    fetcher
+  )
+
+  if (error) return <div>Failed to load</div>
+  if (!data) return <div>Loading...</div>
+
   return (
     <>
       <Head>
@@ -11,9 +27,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <p>WIP</p>
+      <Layout style={{ height: '100vh' }}>
+        <Header>Logo</Header>
+        <Content style={{ padding: '0 50px' }}>
+          <Search
+            placeholder="input search text"
+            onSearch={onSearch}
+            enterButton
+          />
 
-      <Button>this is btn</Button>
+          {JSON.stringify(data)}
+        </Content>
+      </Layout>
     </>
   )
 }
