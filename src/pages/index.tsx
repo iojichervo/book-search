@@ -1,23 +1,10 @@
-import { Layout, Input } from 'antd'
+import BooksSearch from '@/components/BooksSearch'
+import { Layout } from 'antd'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
-import useSWR from 'swr'
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 const { Header, Content } = Layout
-const { Search } = Input
 
 export default function Home() {
-  const [search, setSearch] = useState<string>()
-  const { data, error } = useSWR(
-    'https://openlibrary.org/search.json?q=' + search,
-    fetcher
-  )
-
-  if (error) return <div>Failed to load</div>
-  if (!data) return <div>Loading...</div>
-
   return (
     <>
       <Head>
@@ -30,9 +17,7 @@ export default function Home() {
       <Layout style={{ height: '100vh' }}>
         <Header>Logo</Header>
         <Content style={{ padding: '0 50px' }}>
-          <Search placeholder="Search..." onSearch={setSearch} enterButton />
-
-          {data.q}
+          <BooksSearch />
         </Content>
       </Layout>
     </>
