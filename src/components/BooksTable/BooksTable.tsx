@@ -1,17 +1,13 @@
+import { fetcher } from '@/util/fetcher'
 import { Table } from 'antd'
 import useSWR from 'swr'
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 interface BooksTableProps {
   search: string
 }
 
 export default function BooksTable(props: BooksTableProps) {
-  const { data, error, isLoading } = useSWR(
-    'https://openlibrary.org/search.json?q=' + props.search,
-    fetcher
-  )
+  const { data, error, isLoading } = useSWR('/search.json?q=' + props.search)
 
   const columns = [
     {

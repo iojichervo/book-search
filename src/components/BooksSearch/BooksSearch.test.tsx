@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import BooksSearch from '.'
+import BooksSearch from './BooksSearch'
 
 describe('BooksSearch', () => {
   it('renders the component', () => {
