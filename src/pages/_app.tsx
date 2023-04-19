@@ -5,11 +5,7 @@ import './styles.css'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <SWRConfig
-      value={{
-        fetcher,
-      }}
-    >
+    <SWRConfig value={{ fetcher }}>
       <Component {...pageProps} />
     </SWRConfig>
   )

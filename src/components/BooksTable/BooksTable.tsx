@@ -1,5 +1,4 @@
-import { fetcher } from '@/util/fetcher'
-import { Table } from 'antd'
+import { Alert, Table } from 'antd'
 import useSWR from 'swr'
 
 interface BooksTableProps {
@@ -27,7 +26,14 @@ export default function BooksTable(props: BooksTableProps) {
     },
   ]
 
-  if (error) return <p>An error has occurred...</p>
+  if (error)
+    return (
+      <Alert
+        data-testid="alert-msg"
+        message="An error has occurred, try again..."
+        type="error"
+      />
+    )
   return (
     <Table
       dataSource={data && data.docs}
