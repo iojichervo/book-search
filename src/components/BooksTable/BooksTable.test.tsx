@@ -5,6 +5,17 @@ import { SWRConfig } from 'swr'
 import '../../util/matchMedia'
 import BooksTable from './BooksTable'
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      route: '/',
+      pathname: '',
+      query: '',
+      asPath: '',
+    }
+  },
+}))
+
 describe('BooksTable', () => {
   it('renders the component', async () => {
     const fetcher = () => {

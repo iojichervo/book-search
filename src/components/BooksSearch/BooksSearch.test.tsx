@@ -3,6 +3,17 @@ import '@testing-library/jest-dom'
 import '../../util/matchMedia'
 import BooksSearch from './BooksSearch'
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      route: '/',
+      pathname: '',
+      query: '',
+      asPath: '',
+    }
+  },
+}))
+
 describe('BooksSearch', () => {
   it('renders the component', () => {
     render(<BooksSearch />)
