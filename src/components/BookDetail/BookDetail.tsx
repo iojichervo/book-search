@@ -1,4 +1,4 @@
-import { Breadcrumb, Skeleton, Typography, Image, Row, Col } from 'antd'
+import { Breadcrumb, Skeleton, Typography, Image, Row, Col, Alert } from 'antd'
 import Link from 'next/link'
 import useSWR from 'swr'
 import MediaQuery from 'react-responsive'
@@ -27,9 +27,11 @@ export default function BookDetail(props: BookDetailProps) {
     <>
       <Breadcrumb items={breadcrumbItems} />
       {error && (
-        <p data-testid='error-msg-book-detail'>
-          There was an error while loading the book
-        </p>
+        <Alert
+          data-testid='error-msg-book-detail'
+          message='An error has occurred, try again...'
+          type='error'
+        />
       )}
       {isLoading && <Skeleton />}
       {data && (
@@ -38,20 +40,16 @@ export default function BookDetail(props: BookDetailProps) {
 
           <Row wrap={false}>
             <Col flex='400px'>
-              {data.covers && (
-                <Image
-                  data-testid='book-img'
-                  alt={`Cover image of ${data.title}`}
-                  src={`https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`}
-                  placeholder={
-                    <Image
-                      preview={false}
-                      alt={`Cover image of ${data.title}`}
-                      src={`https://covers.openlibrary.org/b/id/${data.covers[0]}-S.jpg`}
-                    />
-                  }
-                />
-              )}
+              <Image
+                data-testid='book-img'
+                width={380}
+                alt={`Cover image of ${data.title}`}
+                src={
+                  data.covers
+                    ? `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`
+                    : '/fallback-image.png'
+                }
+              />
             </Col>
 
             <MediaQuery minWidth={481}>

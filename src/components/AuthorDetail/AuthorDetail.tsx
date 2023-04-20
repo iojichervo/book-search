@@ -1,6 +1,6 @@
 import { Author } from '@/models/Author'
 import { valueConversor } from '@/util/valueConversor'
-import { Spin, Card, Typography } from 'antd'
+import { Spin, Card, Typography, Alert } from 'antd'
 import useSWR from 'swr'
 
 const { Paragraph } = Typography
@@ -15,9 +15,11 @@ export default function AuthorDetail(props: AuthorDetail) {
   return (
     <>
       {error && (
-        <p data-testid='error-msg-author'>
-          There was an error while loading the Author
-        </p>
+        <Alert
+          data-testid='error-msg-author'
+          message='An error has occurred, try again...'
+          type='error'
+        />
       )}
       {isLoading && <Spin />}
       {data && (
