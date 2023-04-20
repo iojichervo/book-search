@@ -1,26 +1,18 @@
-import {
-  Breadcrumb,
-  Skeleton,
-  Typography,
-  Image,
-  Row,
-  Col,
-  Divider,
-} from 'antd'
+import { Breadcrumb, Skeleton, Typography, Image, Row, Col } from 'antd'
 import Link from 'next/link'
 import useSWR from 'swr'
-import AuthorDetail from '../AuthorDetail/AuthorDetail'
+import MediaQuery from 'react-responsive'
 import { Book } from '@/models/Book'
 import { BreadcrumbItemType } from 'antd/es/breadcrumb/Breadcrumb'
-import { valueConversor } from '@/util/valueConversor'
+import BookInformation from '../BookInformation/BookInformation'
 
 const { Title, Paragraph } = Typography
 
-interface BookDetail {
+interface BookDetailProps {
   id: string
 }
 
-export default function BookDetail(props: BookDetail) {
+export default function BookDetail(props: BookDetailProps) {
   const { data, error, isLoading } = useSWR<Book>(`/works/${props.id}.json`)
 
   const breadcrumbItems: BreadcrumbItemType[] = [
@@ -57,27 +49,16 @@ export default function BookDetail(props: BookDetail) {
               )}
             </Col>
 
-            <Col flex='auto'>
-              {data.description && (
-                <Paragraph>{valueConversor(data.description)}</Paragraph>
-              )}
-
-              {data.first_publish_date && (
-                <span>First published in {data.first_publish_date}</span>
-              )}
-
-              <Divider>
-                {data.authors.length == 1 ? 'Author' : 'Authors'}
-              </Divider>
-
-              {(data.authors || []).map((a) => (
-                <AuthorDetail
-                  key={a.author.key}
-                  id={a.author.key.split('/')[2]}
-                />
-              ))}
-            </Col>
+            <MediaQuery minWidth={481}>
+              <Col flex='auto'>
+                <BookInformation book={data} />
+              </Col>
+            </MediaQuery>
           </Row>
+
+          <MediaQuery maxWidth={480}>
+            <BookInformation book={data} />
+          </MediaQuery>
         </>
       )}
     </>
