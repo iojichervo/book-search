@@ -6,7 +6,7 @@ import { Book } from '@/models/Book'
 import { BreadcrumbItemType } from 'antd/es/breadcrumb/Breadcrumb'
 import BookInformation from '../BookInformation/BookInformation'
 
-const { Title, Paragraph } = Typography
+const { Title } = Typography
 
 interface BookDetailProps {
   id: string

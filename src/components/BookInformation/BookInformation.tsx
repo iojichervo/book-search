@@ -1,4 +1,4 @@
-import { Typography, Divider } from 'antd'
+import { Typography, Divider, Tag } from 'antd'
 import AuthorDetail from '../AuthorDetail/AuthorDetail'
 import { Book } from '@/models/Book'
 import { valueConversor } from '@/util/valueConversor'
@@ -18,8 +18,16 @@ export default function BookInformation(props: BookInformationProps) {
       )}
 
       {data.first_publish_date && (
-        <span>First published in {data.first_publish_date}</span>
+        <p>
+          <strong>First published in </strong>
+          {data.first_publish_date}
+        </p>
       )}
+
+      <strong>Subjects: </strong>
+      {data.subjects.map((s) => (
+        <Tag key={s}>{s}</Tag>
+      ))}
 
       <Divider>{data.authors.length == 1 ? 'Author' : 'Authors'}</Divider>
 

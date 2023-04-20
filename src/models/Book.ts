@@ -4,4 +4,5 @@ export interface Book {
   description: { value: string } | string
   first_publish_date: string
   authors: { author: { key: string } }[]
+  subjects: string[]
 }
