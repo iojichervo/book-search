@@ -29,13 +29,15 @@ export default function BooksTable(props: BooksTableProps) {
   if (error)
     return (
       <Alert
-        data-testid="alert-msg"
+        data-testid="books-table-alert-msg"
         message="An error has occurred, try again..."
         type="error"
       />
     )
+
   return (
     <Table
+      data-testid="books-table"
       dataSource={data && data.docs}
       columns={columns}
       loading={isLoading}

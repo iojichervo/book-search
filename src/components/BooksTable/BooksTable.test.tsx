@@ -1,11 +1,12 @@
-import { SWRConfig } from 'swr'
-import '../../util/matchMedia'
+import { act } from 'react-dom/test-utils'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
+import { SWRConfig } from 'swr'
+import '../../util/matchMedia'
 import BooksTable from './BooksTable'
 
 describe('BooksTable', () => {
-  it('renders the component', () => {
+  it('renders the component', async () => {
     const fetcher = () => {
       return {
         docs: [
@@ -19,23 +20,38 @@ describe('BooksTable', () => {
       }
     }
 
-    render(
-      <SWRConfig value={{ fetcher }}>
-        <BooksTable search={'example'} />
-      </SWRConfig>
+    await act(async () =>
+      render(
+        <SWRConfig value={{ fetcher }}>
+          <BooksTable search={'example'} />
+        </SWRConfig>
+      )
     )
+
+    const alert = screen.queryByTestId('books-table-alert-msg')
+    expect(alert).not.toBeInTheDocument()
+    const table = screen.queryByTestId('books-table')
+    expect(table).toBeInTheDocument()
+
+    expect(screen.getByText('a good book')).toBeInTheDocument()
+    expect(screen.getByText('good author')).toBeInTheDocument()
+    expect(screen.getByText('1999')).toBeInTheDocument()
   })
 
-  it('renders the component showing an error message', () => {
+  it('renders the component showing an error message', async () => {
     const fetcher = () => {
       throw new Error('error')
     }
-    render(
-      <SWRConfig value={{ fetcher }}>
-        <BooksTable search={'example'} />
-      </SWRConfig>
+    await act(async () =>
+      render(
+        <SWRConfig value={{ fetcher }}>
+          <BooksTable search={'something'} />
+        </SWRConfig>
+      )
     )
-    const alert = screen.queryByTestId('alert-msg')
+    const alert = screen.queryByTestId('books-table-alert-msg')
     expect(alert).toBeInTheDocument()
+    const table = screen.queryByTestId('books-table')
+    expect(table).not.toBeInTheDocument()
   })
 })

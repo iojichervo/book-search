@@ -23,21 +23,27 @@ export default function BooksSearch() {
     <>
       <div id="search-wrapper">
         <Search
+          data-testid="books-search"
           placeholder="Search..."
           status={isInvalid ? 'error' : ''}
           onSearch={onSearch}
           enterButton
         />
         {isInvalid && (
-          <small>
+          <small data-testid="books-search-invalid">
             The searched value needs have at least {MIN_LENGTH_SEARCH}{' '}
             characters
           </small>
         )}
       </div>
 
-      {!search && <Empty description={'No books have been searched'} />}
-      {search && <BooksTable search={search} />}
+      {!search && (
+        <Empty
+          data-testid="empty-search"
+          description={'No books have been searched'}
+        />
+      )}
+      {search && <BooksTable data-testid="books-table" search={search} />}
     </>
   )
 }
