@@ -1,4 +1,4 @@
 export interface Author {
   name: string
-  bio: string
+  bio: { value: string } | string
 }

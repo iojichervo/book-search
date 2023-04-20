@@ -1,4 +1,5 @@
 import { Author } from '@/models/Author'
+import { valueConversor } from '@/util/valueConversor'
 import { Spin, Card, Typography } from 'antd'
 import useSWR from 'swr'
 
@@ -17,8 +18,8 @@ export default function AuthorDetail(props: AuthorDetail) {
       {isLoading && <Spin />}
       {data && (
         <Card title={data.name} style={{ width: 300 }}>
-          <Paragraph ellipsis={{ rows: 4, tooltip: data.bio }}>
-            {data.bio}
+          <Paragraph ellipsis={{ rows: 4, tooltip: valueConversor(data.bio) }}>
+            {valueConversor(data.bio)}
           </Paragraph>
         </Card>
       )}
