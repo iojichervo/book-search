@@ -5,10 +5,10 @@ const { Content } = Layout
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang='en'>
       <Head />
       <body>
-        <Layout id="main-layout">
+        <Layout id='main-layout'>
           <Content>
             <Main />
             <NextScript />
