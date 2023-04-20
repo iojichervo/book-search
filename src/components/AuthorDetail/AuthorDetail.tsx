@@ -14,7 +14,11 @@ export default function AuthorDetail(props: AuthorDetail) {
 
   return (
     <>
-      {error && <p>There was an error while loading the Author</p>}
+      {error && (
+        <p data-testid='error-msg-author'>
+          There was an error while loading the Author
+        </p>
+      )}
       {isLoading && <Spin />}
       {data && (
         <Card title={data.name} style={{ width: 300 }}>

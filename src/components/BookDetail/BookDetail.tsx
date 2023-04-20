@@ -26,7 +26,11 @@ export default function BookDetail(props: BookDetailProps) {
   return (
     <>
       <Breadcrumb items={breadcrumbItems} />
-      {error && <p>There was an error while loading the book</p>}
+      {error && (
+        <p data-testid='error-msg-book-detail'>
+          There was an error while loading the book
+        </p>
+      )}
       {isLoading && <Skeleton />}
       {data && (
         <>
@@ -36,6 +40,7 @@ export default function BookDetail(props: BookDetailProps) {
             <Col flex='400px'>
               {data.covers && (
                 <Image
+                  data-testid='book-img'
                   alt={`Cover image of ${data.title}`}
                   src={`https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`}
                   placeholder={
