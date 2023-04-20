@@ -1,4 +1,4 @@
-import { BookSummary } from '@/models/Book'
+import { BookSummary } from '@/models/BookSummary'
 import { Alert, Table } from 'antd'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
@@ -8,7 +8,9 @@ interface BooksTableProps {
 }
 
 export default function BooksTable(props: BooksTableProps) {
-  const { data, error, isLoading } = useSWR('/search.json?q=' + props.search)
+  const { data, error, isLoading } = useSWR<BookSummary>(
+    '/search.json?q=' + props.search
+  )
   const router = useRouter()
 
   const columns = [
@@ -42,7 +44,7 @@ export default function BooksTable(props: BooksTableProps) {
     <Table
       data-testid='books-table'
       rowClassName='books-table-row'
-      onRow={(record: BookSummary) => {
+      onRow={(record) => {
         return {
           onClick: (_) => {
             router.push(record.key)

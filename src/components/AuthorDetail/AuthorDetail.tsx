@@ -1,12 +1,15 @@
-import { Spin, Card } from 'antd'
+import { Author } from '@/models/Author'
+import { Spin, Card, Typography } from 'antd'
 import useSWR from 'swr'
+
+const { Paragraph } = Typography
 
 interface AuthorDetail {
   id: string
 }
 
 export default function AuthorDetail(props: AuthorDetail) {
-  const { data, error, isLoading } = useSWR(`/authors/${props.id}.json`)
+  const { data, error, isLoading } = useSWR<Author>(`/authors/${props.id}.json`)
 
   return (
     <>
@@ -14,7 +17,9 @@ export default function AuthorDetail(props: AuthorDetail) {
       {isLoading && <Spin />}
       {data && (
         <Card title={data.name} style={{ width: 300 }}>
-          <p>{data.bio.value}</p>
+          <Paragraph ellipsis={{ rows: 4, tooltip: data.bio }}>
+            {data.bio}
+          </Paragraph>
         </Card>
       )}
     </>
