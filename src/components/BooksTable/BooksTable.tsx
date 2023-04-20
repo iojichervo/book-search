@@ -1,4 +1,6 @@
+import { Book } from '@/models/Book'
 import { Alert, Table } from 'antd'
+import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
 interface BooksTableProps {
@@ -7,6 +9,7 @@ interface BooksTableProps {
 
 export default function BooksTable(props: BooksTableProps) {
   const { data, error, isLoading } = useSWR('/search.json?q=' + props.search)
+  const router = useRouter()
 
   const columns = [
     {
@@ -29,15 +32,23 @@ export default function BooksTable(props: BooksTableProps) {
   if (error)
     return (
       <Alert
-        data-testid="books-table-alert-msg"
-        message="An error has occurred, try again..."
-        type="error"
+        data-testid='books-table-alert-msg'
+        message='An error has occurred, try again...'
+        type='error'
       />
     )
 
   return (
     <Table
-      data-testid="books-table"
+      data-testid='books-table'
+      rowClassName='books-table-row'
+      onRow={(record: Book) => {
+        return {
+          onClick: (_) => {
+            router.push(record.key)
+          },
+        }
+      }}
       dataSource={data && data.docs}
       columns={columns}
       loading={isLoading}
