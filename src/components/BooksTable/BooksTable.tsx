@@ -1,4 +1,4 @@
-import { Book } from '@/models/Book'
+import { BookSummary } from '@/models/Book'
 import { Alert, Table } from 'antd'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
@@ -42,7 +42,7 @@ export default function BooksTable(props: BooksTableProps) {
     <Table
       data-testid='books-table'
       rowClassName='books-table-row'
-      onRow={(record: Book) => {
+      onRow={(record: BookSummary) => {
         return {
           onClick: (_) => {
             router.push(record.key)
