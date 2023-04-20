@@ -1,6 +1,7 @@
 import { BookSummary } from '@/models/BookSummary'
 import { Alert, Table } from 'antd'
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 
 interface BooksTableProps {
@@ -8,10 +9,13 @@ interface BooksTableProps {
 }
 
 export default function BooksTable(props: BooksTableProps) {
+  const [page, setPage] = useState<number>(1)
   const { data, error, isLoading } = useSWR<BookSummary>(
-    '/search.json?q=' + props.search
+    `/search.json?q=${props.search}&page=${page}`
   )
   const router = useRouter()
+
+  useEffect(() => setPage(1), [props.search])
 
   const columns = [
     {
@@ -54,6 +58,13 @@ export default function BooksTable(props: BooksTableProps) {
       dataSource={data && data.docs}
       columns={columns}
       loading={isLoading}
+      pagination={{
+        showSizeChanger: false,
+        current: page,
+        pageSize: 100,
+        total: data?.num_found,
+      }}
+      onChange={(pag) => setPage(pag.current!)}
     />
   )
 }

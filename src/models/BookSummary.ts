@@ -1,4 +1,5 @@
 export interface BookSummary {
+  num_found: number
   docs: {
     key: string
     title: string
