@@ -24,8 +24,14 @@ export default function BookInformation(props: BookInformationProps) {
         </p>
       )}
 
-      <strong>Subjects: </strong>
-      {data.subjects && data.subjects.map((s) => <Tag key={s}>{s}</Tag>)}
+      {data.subjects && (
+        <>
+          <strong>Subjects: </strong>
+          {data.subjects.map((s) => (
+            <Tag key={s}>{s}</Tag>
+          ))}
+        </>
+      )}
 
       <Divider>{data.authors.length == 1 ? 'Author' : 'Authors'}</Divider>
 

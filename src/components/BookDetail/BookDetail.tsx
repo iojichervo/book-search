@@ -46,7 +46,7 @@ export default function BookDetail(props: BookDetailProps) {
                 alt={`Cover image of ${data.title}`}
                 src={
                   data.covers
-                    ? `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`
+                    ? `https://covers.openlibrary.org/b/id/${data.covers[0]}-M.jpg`
                     : '/fallback-image.png'
                 }
               />

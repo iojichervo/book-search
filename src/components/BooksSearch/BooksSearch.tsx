@@ -39,6 +39,7 @@ export default function BooksSearch() {
 
       {!search && (
         <Empty
+          className='empty-search'
           data-testid='empty-search'
           description={'No books have been searched'}
         />
